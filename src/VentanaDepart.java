@@ -20,7 +20,7 @@ JTextField loc=new JTextField(25);
 
 
 JLabel mensaje=new JLabel(" ----------------------------- ");
-JLabel titulo=new JLabel ("GESTIÓN DE DEPARTAMENTOS.");
+JLabel titulo=new JLabel ("GESTIï¿½N DE DEPARTAMENTOS.");
 
 JLabel lnum = new JLabel ("NUMERO DEPARTAMENTO:");
 JLabel lnom = new JLabel ("NOMBRE:");
@@ -38,7 +38,7 @@ Color c; //para poner colores
 
 public VentanaDepart(JFrame f )
 { 	
-    setTitle("GESTIÓN DE DEPARTAMENTOS.");
+    setTitle("GESTIï¿½N DE DEPARTAMENTOS.");
     
     JPanel p0 = new JPanel();
 	c = Color.CYAN;
@@ -78,7 +78,7 @@ public VentanaDepart(JFrame f )
 	
 	// para ver la ventana y colocar los controles verticalmente
 	setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS)); 
-	// añadir los panel al frame
+	// aï¿½adir los panel al frame
 	add(p0);add(p1);add(p2);add(p3);add(p4);add(p5);add(p7);
 	pack(); //hace que se coloquen alineados los elementos de cada JPanel
 	
@@ -95,13 +95,14 @@ public VentanaDepart(JFrame f )
 
 public void actionPerformed(ActionEvent e) 
 {   int dep, confirm;
+	String existedepart = "DEPARTAMENTO EXISTE.";
 	if (e.getSource() == balta) { //SE PULSA EL BOTON alta   	
 		mensaje.setText(" has pulsado el boton alta");   
 		try {
 	    	  dep=Integer.parseInt(num.getText());
 	    	  if (dep >0)
 	    	      if (consultar(dep))
-					 mensaje.setText("DEPARTAMENTO EXISTE.");   
+					 mensaje.setText(existedepart);   
 			      else
 					{ mensaje.setText("NUEVO DEPARTAMENTO.");	
 	    	          grabar(dep, nombre.getText(), loc.getText());
@@ -110,7 +111,7 @@ public void actionPerformed(ActionEvent e)
 	    	  else mensaje.setText("DEPARTAMENTO DEBE SER MAYOR QUE 0");	
 	    	  
 	       } catch(java.lang.NumberFormatException ex) //controlar el error del Integer.parseInt
-	         {mensaje.setText("DEPARTAMENTO ERRÓNEO.");} 
+	         {mensaje.setText("DEPARTAMENTO ERRï¿½NEO.");} 
 	       catch (IOException ex2) {
 	    	   mensaje.setText("ERRORRR EN EL FICHERO. Fichero no existe. (ALTA)");
 	    	   // lo creo
@@ -125,7 +126,7 @@ public void actionPerformed(ActionEvent e)
 	    	  dep=Integer.parseInt(num.getText());
 	    	  if (dep >0)
 	    	      if (consultar(dep))
-	    	       { mensaje.setText("DEPARTAMENTO EXISTE.");   
+	    	       { mensaje.setText(existedepart);   
 	    	         visualiza(dep);}
 			      else
 					{ mensaje.setText("DEPARTAMENTO NO EXISTE.");	
@@ -134,7 +135,7 @@ public void actionPerformed(ActionEvent e)
 	    	  else mensaje.setText("DEPARTAMENTO DEBE SER MAYOR QUE 0");	
 	    	  
 	       } catch(java.lang.NumberFormatException ex) //controlar el error del Integer.parseInt
-	           {mensaje.setText("DEPARTAMENTO ERRÓNEO");}
+	           {mensaje.setText("DEPARTAMENTO ERRï¿½NEO");}
 	         catch (IOException ex2) 
     	      {mensaje.setText(" ERRORRR EN EL FICHERO. Fichero no existe. (ALTA)");} 
 	      
@@ -146,7 +147,7 @@ public void actionPerformed(ActionEvent e)
 	    	  dep=Integer.parseInt(num.getText());
 	    	  if (dep >0)
 	    	      if (consultar(dep))
-	    	       { mensaje.setText("DEPARTAMENTO EXISTE.");   
+	    	       { mensaje.setText(existedepart);   
 	    	         visualiza(dep);
 	    	         confirm=JOptionPane.showConfirmDialog(this, "ESTAS SEGURO DE BORRAR...", "AVISO BORRADO.", 
 	    	        		     JOptionPane.OK_CANCEL_OPTION);	  
@@ -165,7 +166,7 @@ public void actionPerformed(ActionEvent e)
 	    	  else mensaje.setText("DEPARTAMENTO DEBE SER MAYOR QUE 0");	
 	    	  
 	       } catch(java.lang.NumberFormatException ex) //controlar el error del Integer.parseInt
-	           {mensaje.setText("DEPARTAMENTO ERRÓNEO");} 
+	           {mensaje.setText("DEPARTAMENTO ERRï¿½NEO");} 
 	       catch (IOException ex2) 
 	    	   {mensaje.setText("ERRORRR EN EL FICHERO. Fichero no existe. (BORRAR)");} 
 	    }
@@ -175,8 +176,8 @@ public void actionPerformed(ActionEvent e)
 	    	  dep=Integer.parseInt(num.getText());
 	    	  if (dep >0)
 	    	      if (consultar(dep))
-	    	       { mensaje.setText("DEPARTAMENTO EXISTE.");  
-	    	         confirm=JOptionPane.showConfirmDialog(this, "ESTAS SEGURO DE MODIFICAR...", "AVISO MODIFICACIÓN.", 
+	    	       { mensaje.setText(existedepart);  
+	    	         confirm=JOptionPane.showConfirmDialog(this, "ESTAS SEGURO DE MODIFICAR...", "AVISO MODIFICACIï¿½N.", 
 	    	        		     JOptionPane.OK_CANCEL_OPTION);	  
 	    	           // si devuelve 0 es OK
 	    	           //mensaje.setText(" has pulsado el boton Borrar "+ confirm);   
@@ -192,7 +193,7 @@ public void actionPerformed(ActionEvent e)
 	    	  else mensaje.setText("DEPARTAMENTO DEBE SER MAYOR QUE 0");	
 	    	  
 	       } catch(java.lang.NumberFormatException ex) //controlar el error del Integer.parseInt
-	           {mensaje.setText("DEPARTAMENTO ERRÓNEO");} 
+	           {mensaje.setText("DEPARTAMENTO ERRï¿½NEO");} 
 	       catch (IOException ex2) 
 	    	   {mensaje.setText(" ERRORRR EN EL FICHERO. Fichero no existe. (MODIFICAR)");} 
 	    }
@@ -225,7 +226,7 @@ public  void verporconsola() throws IOException {
 	pos=0;  //para situarnos al principio
 	System.out.println(" ------------------------------------------");  
 	System.out.println(" - - - VISUALIZO POR CONSOLAAAAA ");      
-	for(;;){  //recorro el fichero, visualiza también las posiciones vacías
+	for(;;){  //recorro el fichero, visualiza tambiï¿½n las posiciones vacï¿½as
 		   file.seek(pos); 
 		   dep=file.readInt();   // obtengo el dep	  	  
 	       for (int i = 0; i < cad.length; i++) {
@@ -247,8 +248,8 @@ public  void verporconsola() throws IOException {
 	file.close();  //cerrar fichero 
 	System.out.println(" ------------------------------------------");  
 	}
-  else  //esto sólo sale la primera vez
-		System.out.println(" ---------FICHERO VACIÍIOOOO --------------------");
+  else  //esto sï¿½lo sale la primera vez
+		System.out.println(" ---------FICHERO VACIï¿½IOOOO --------------------");
 }// fin verporconsola
 
 boolean consultar(int dep) throws IOException 
@@ -258,7 +259,7 @@ boolean consultar(int dep) throws IOException
 	RandomAccessFile file = new RandomAccessFile(fichero, "r");
     // Calculo del reg a leer
 	try { pos=44 * (dep-1);
-          if (file.length()==0) return false; // si está vacío
+          if (file.length()==0) return false; // si estï¿½ vacï¿½o
 	      file.seek(pos); 
 	      depa=file.readInt();   
 	      file.close(); 
@@ -364,7 +365,7 @@ void grabar(int dep, String nom, String loc)
 		RandomAccessFile file = new RandomAccessFile(fichero, "rw");
         // Calculo del reg a leer
         pos=44 * (dep-1);
-        //if (file.length()==0) return false; // si está vacío
+        //if (file.length()==0) return false; // si estï¿½ vacï¿½o
         
 	    file.seek(pos); 
 	    file.writeInt(dep);       
