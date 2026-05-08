@@ -20,6 +20,25 @@ public class FicheroAleatorioVentana {
 		v.setVisible(true);
 	   
 	}//fin main
+	
+	// Esta es la clase anidada
+    public class claseAnidada {
+        void entrada() {
+            System.out.println("Método entrada.");
+        }
+
+        String salida(int d) {
+            System.out.println("Salida.");
+            return "Salida el " + d;
+        }
+    }
+
+    // Método donde instanciamos y probamos la clase
+    void verporconsola() {
+        claseAnidada ej = new claseAnidada();
+        ej.entrada();
+        System.out.println("Llamo a Salida: " + ej.salida(10));
+    }
 
 	
 }//fin class
