@@ -5,8 +5,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import javax.swing.*;
 
-public class VentanaDepart extends JFrame implements ActionListener {
-
+public class VentanaDepart extends SuperclaseDepart implements ActionListener, InterfaceVentanaDepart {
     private static final String NOEXISTEDEPART = "NUEVO DEPARTAMENTO.";
     private static final long serialVersionUID = 1L;
     
@@ -15,8 +14,6 @@ public class VentanaDepart extends JFrame implements ActionListener {
     private String depar_error = "DEPARTAMENTO ERRÓNEO.";
 
     JTextField num = new JTextField(10);
-    JTextField nombre = new JTextField(25);
-    JTextField loc = new JTextField(25);
 
     JLabel mensaje = new JLabel(" ----------------------------- ");
     JLabel titulo = new JLabel("GESTIÓN DE DEPARTAMENTOS.");
@@ -241,19 +238,7 @@ public class VentanaDepart extends JFrame implements ActionListener {
         return depa > 0;
     }
 
-    void visualiza(int dep) {
-        try {
-            RandomAccessFile file = new RandomAccessFile(new File("AleatorioDep.dat"), "r");
-            file.seek(44 * (dep - 1));
-            file.readInt();
-            char nom[] = new char[10], loc1[] = new char[10];
-            for (int i = 0; i < 10; i++) nom[i] = file.readChar();
-            for (int i = 0; i < 10; i++) loc1[i] = file.readChar();
-            nombre.setText(new String(nom));
-            loc.setText(new String(loc1));
-            file.close();
-        } catch (IOException e) {}
-    }
+
 
     void borrar(int dep) {
         try {
@@ -283,18 +268,5 @@ public class VentanaDepart extends JFrame implements ActionListener {
         } catch (IOException e) {}
     }
 
-    void grabar(int dep, String nom, String loc) {
-        try {
-            RandomAccessFile file = new RandomAccessFile(new File("AleatorioDep.dat"), "rw");
-            file.seek(44 * (dep - 1));
-            file.writeInt(dep);
-            StringBuffer buffer = new StringBuffer(nom);
-            buffer.setLength(10);
-            file.writeChars(buffer.toString());
-            buffer = new StringBuffer(loc);
-            buffer.setLength(10);
-            file.writeChars(buffer.toString());
-            file.close();
-        } catch (IOException e) {}
-    }
+ 
 }
