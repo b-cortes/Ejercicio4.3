@@ -13,6 +13,7 @@ import javax.swing.*;
 
 public class VentanaDepart extends JFrame implements ActionListener  {
 	
+private static final String NOEXISTEDEPART = "NUEVO DEPARTAMENTO.";
 private static final long serialVersionUID = 1L;
 JTextField num=new JTextField(10);
 JTextField nombre=new JTextField(25);
@@ -35,6 +36,8 @@ JButton ver=new JButton("Ver por consola.");
 JButton fin=new JButton("CERRAR");
 Color c; //para poner colores
  // WHITE,LIGHTGRAY,GRAY,DARKGRAY,BLUE,BLACK,RED,MAGENTA,PINK,ORANGE,CYAN,GREEN,YELLOW
+private String existedepart;
+private String depar_error;
 
 public VentanaDepart(JFrame f )
 { 	
@@ -48,7 +51,7 @@ public VentanaDepart(JFrame f )
 	JPanel p1 = new JPanel();
 	p1.setLayout (new FlowLayout());
 	p1.add(lnum);
-	p1.add(num);p1.add(consu);
+	p1.add(num);p1.add(consuldepart());
 	
 	JPanel p2 = new JPanel();
 	p2.setLayout (new FlowLayout());
@@ -63,7 +66,7 @@ public VentanaDepart(JFrame f )
 	JPanel p4 = new JPanel();
 	p4.setLayout (new FlowLayout());
 	c = Color.YELLOW;
-	p4.add(balta);	 p4.add(borra);p4.add(modif);
+	p4.add(altadepart());	 p4.add(borradepart());p4.add(modifdepart());
 	p4.setBackground(c);
 	
 	JPanel p5 = new JPanel();
@@ -84,19 +87,19 @@ public VentanaDepart(JFrame f )
 	
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	
-	balta.addActionListener(this);
+	altadepart().addActionListener(this);
 	breset.addActionListener(this);
 	fin.addActionListener(this);
-	consu.addActionListener(this);
-	borra.addActionListener(this);
-	modif.addActionListener(this);
+	consuldepart().addActionListener(this);
+	borradepart().addActionListener(this);
+	modifdepart().addActionListener(this);
 	ver.addActionListener(this);
 }
 
 public void actionPerformed(ActionEvent e) 
 {   int dep, confirm;
-	String existedepart = "DEPARTAMENTO EXISTE.";
-	if (e.getSource() == balta) { //SE PULSA EL BOTON alta   	
+	existedepart = "DEPARTAMENTO EXISTE.";
+	if (e.getSource() == altadepart()) { //SE PULSA EL BOTON alta   	
 		mensaje.setText(" has pulsado el boton alta");   
 		try {
 	    	  dep=Integer.parseInt(num.getText());
@@ -104,23 +107,23 @@ public void actionPerformed(ActionEvent e)
 	    	      if (consultar(dep))
 					 mensaje.setText(existedepart);   
 			      else
-					{ mensaje.setText("NUEVO DEPARTAMENTO.");	
+					{ mensaje.setText(NOEXISTEDEPART);	
 	    	          grabar(dep, nombre.getText(), loc.getText());
 	    	          mensaje.setText("NUEVO DEPARTAMENTO GRABADO.");	
 	    	         }
 	    	  else mensaje.setText("DEPARTAMENTO DEBE SER MAYOR QUE 0");	
 	    	  
-	       } catch(java.lang.NumberFormatException ex) //controlar el error del Integer.parseInt
-	         {mensaje.setText("DEPARTAMENTO ERR�NEO.");} 
+	       } catch(java.lang.NumberFormatException ex)
+	         {depar_error = "DEPARTAMENTO ERR�NEO.";
+			 mensaje.setText(depar_error);} 
 	       catch (IOException ex2) {
 	    	   mensaje.setText("ERRORRR EN EL FICHERO. Fichero no existe. (ALTA)");
-	    	   // lo creo
-	    		
+	    	  
 	    		
 	    		 } 
 	    }
 		   
-	if (e.getSource() == consu) { //SE PULSA EL BOTON  consultar  	
+	if (e.getSource() == consuldepart()) { //SE PULSA EL BOTON  consultar  	
 		mensaje.setText(" has pulsado el boton alta");   
 		try {
 	    	  dep=Integer.parseInt(num.getText());
@@ -141,7 +144,7 @@ public void actionPerformed(ActionEvent e)
 	      
 	    }
 		  
-	if (e.getSource() == borra) { //SE PULSA EL BOTON  borrar  	
+	if (e.getSource() == borradepart()) { //SE PULSA EL BOTON  borrar  	
 		mensaje.setText(" has pulsado el boton Borrar");   
 		try {
 	    	  dep=Integer.parseInt(num.getText());
@@ -170,12 +173,12 @@ public void actionPerformed(ActionEvent e)
 	       catch (IOException ex2) 
 	    	   {mensaje.setText("ERRORRR EN EL FICHERO. Fichero no existe. (BORRAR)");} 
 	    }
-	if (e.getSource() == modif) { //SE PULSA EL BOTON  modificar  	
+	if (e.getSource() == modifdepart()) { //SE PULSA EL BOTON  modificar  	
 		mensaje.setText(" has pulsado el boton Modificar.");   
 		try {
 	    	  dep=Integer.parseInt(num.getText());
 	    	  if (dep >0)
-	    	      if (consultar(dep))
+	    	      if (consultar(dep))F
 	    	       { mensaje.setText(existedepart);  
 	    	         confirm=JOptionPane.showConfirmDialog(this, "ESTAS SEGURO DE MODIFICAR...", "AVISO MODIFICACI�N.", 
 	    	        		     JOptionPane.OK_CANCEL_OPTION);	  
@@ -215,6 +218,22 @@ public void actionPerformed(ActionEvent e)
         num.setText(" ");nombre.setText(" ");
         loc.setText(" ");
 	}
+}
+
+private JButton modifdepart() {
+	return modif;
+}
+
+private JButton borradepart() {
+	return borra;
+}
+
+private JButton consuldepart() {
+	return consu;
+}
+
+private JButton altadepart() {
+	return balta;
 }
 
 public  void verporconsola() throws IOException {     
